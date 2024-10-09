@@ -25,20 +25,21 @@ extern NSString * const RJBadgePathKey;
 extern NSString * const RJBadgeCountKey;
 extern NSString * const RJBadgeShowKey;
 
-typedef void (^RJBadgeNotificationBlock)(id _Nullable observer, NSDictionary<NSString *, id> *info);
+typedef void (^RJBadgeNotificationBlock)(id observer, NSDictionary<NSString *, id> *info);
 
-@interface RJBadgeController : NSObject
+NS_SWIFT_NAME(BadgeController)
+@interface RJBadgeController<Observer> : NSObject
 
 /**
  The observer notified on badge change. Specified on initialization.
  */
-@property (nullable, nonatomic, weak, readonly) id observer;
+@property (nullable, nonatomic, weak, readonly) Observer observer;
 
 #pragma mark - Initialize
 
-+ (instancetype)controllerWithObserver:(nullable id)observer;
++ (instancetype)controllerWithObserver:(nullable Observer)observer;
 
-- (instancetype)initWithObserver:(nullable id)observer NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithObserver:(nullable Observer)observer NS_DESIGNATED_INITIALIZER;
 
 /**
  @abstract Initializes a new instance.
@@ -54,11 +55,11 @@ typedef void (^RJBadgeNotificationBlock)(id _Nullable observer, NSDictionary<NSS
 
 #pragma mark - Observe
 
-- (void)observePath:(NSString *)keyPath block:(RJBadgeNotificationBlock)block;
+- (void)observePath:(NSString *)keyPath block:(void (^ _Nullable)(Observer observer, NSDictionary<NSString *, id> *info))block;
 
-- (void)observePath:(NSString *)keyPath badgeView:(nullable id<RJBadgeView>)badgeView block:(nullable RJBadgeNotificationBlock)block;
+- (void)observePath:(NSString *)keyPath badgeView:(nullable id<RJBadgeView>)badgeView block:(void (^_Nullable)(Observer observer, NSDictionary<NSString *, id> *info))block;
 
-- (void)observePaths:(NSArray<NSString *> *)keyPaths block:(RJBadgeNotificationBlock)block;
+- (void)observePaths:(NSArray<NSString *> *)keyPaths block:(void (^_Nullable)(Observer observer, NSDictionary<NSString *, id> *info))block;
 
 #pragma mark - Unobserve
 

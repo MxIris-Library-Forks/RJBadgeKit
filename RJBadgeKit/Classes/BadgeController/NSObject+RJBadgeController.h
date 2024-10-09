@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (RJBadgeController)
 
-@property (nonatomic, strong) RJBadgeController *badgeController;
+@property (nonatomic, strong) RJBadgeController *badgeController NS_REFINED_FOR_SWIFT;
 
 @end
 

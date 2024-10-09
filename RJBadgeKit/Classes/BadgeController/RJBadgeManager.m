@@ -295,9 +295,13 @@ NS_ASSUME_NONNULL_BEGIN
             }
             if (bInfo.block) {
                 id observer = bInfo.controller.observer;
-                bInfo.block(observer, @{ RJBadgePathKey :   badge.keyPath,
-                                         RJBadgeShowKey : @(badge.needShow),
-                                         RJBadgeCountKey: @(badge.count) });
+                if (observer) {
+                    
+                    bInfo.block(observer, @{ RJBadgePathKey :   badge.keyPath,
+                                             RJBadgeShowKey : @(badge.needShow),
+                                             RJBadgeCountKey: @(badge.count) });
+
+                }
             }
         }];
     }
